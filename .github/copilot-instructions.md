@@ -116,7 +116,7 @@ module.exports = mongoose.model("Item", itemSchema);
 
 ### Base URL
 ```
-http://localhost:5000/api
+https://laxmi-agency-backend.onrender.com/api
 ```
 
 ### Items CRUD
@@ -350,7 +350,7 @@ npm run dev  # Uses nodemon (auto-reload)
 ### Test Endpoints
 Use Postman or curl:
 ```bash
-curl -X POST http://localhost:5000/api/items \
+curl -X POST https://laxmi-agency-backend.onrender.com/api/items \
   -H "Content-Type: application/json" \
   -d '{"itemName":"Fabric","category":"Textiles"}'
 ```
@@ -358,7 +358,7 @@ curl -X POST http://localhost:5000/api/items \
 ## CORS Configuration
 ```javascript
 app.use(cors({
-  origin: "http://localhost:5173",  // Frontend URL
+  origin: "https://laxmi-agency-frontend.onrender.com",  // Frontend URL (set FRONDEND_URL in prod)
   credentials: true
 }));
 ```
