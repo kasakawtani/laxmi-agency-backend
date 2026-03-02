@@ -263,6 +263,8 @@ if (!item) {
 ### .env File (Example)
 ```
 MONGO_URI=mongodb+srv://user:pass@cluster.mongodb.net/laxmi-agency
+BACKEND_URL=https://laxmi-agency-backend.onrender.com
+FRONTEND_URL=https://laxmi-agency-frontend.onrender.com
 PORT=5000
 NODE_ENV=development
 JWT_SECRET=your_secret_key_here

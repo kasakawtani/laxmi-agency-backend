@@ -5,8 +5,24 @@ require("dotenv").config();
 
 const app = express();
 
+// define backend base URL (useful in links or debugging)
+const BASE_URL = process.env.BACKEND_URL || "http://localhost:5000";
+
+// CORS setup - allow frontend origin or localhost development URL
 app.use(cors({
-  origin: "*"
+  origin: function (origin, callback) {
+    const allowedOrigins = [
+      process.env.FRONTEND_URL,
+      "http://localhost:5173"
+    ];
+
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS not allowed"));
+    }
+  },
+  credentials: true
 }));
 // DB
 connectDB();
@@ -17,6 +33,11 @@ app.use(express.json());
 // Test route
 app.get("/", (req, res) => {
   res.send("Agency Backend Running");
+});
+
+// expose API base URL (optional) for debugging
+app.get("/api-url", (req, res) => {
+  res.json({ baseUrl: BASE_URL });
 });
 
 // ROUTES (THIS IS THE KEY PART)
