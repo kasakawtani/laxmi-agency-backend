@@ -9,14 +9,7 @@ const app = express();
 connectDB();
 
 // ✅ FIXED CORS (production + local)
-app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://laxmi-agency-frontend.vercel.app"
-  ],
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
-}));
+app.use(cors());
 
 // Middleware
 app.use(express.json());
