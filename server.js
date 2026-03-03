@@ -5,27 +5,18 @@ require("dotenv").config();
 
 const app = express();
 
-// define backend base URL (useful in links or debugging)
-const BASE_URL = process.env.BACKEND_URL || "http://localhost:5000";
-
-// CORS setup - allow frontend origin or localhost development URL
-app.use(cors({
-  origin: function (origin, callback) {
-    const allowedOrigins = [
-      process.env.FRONTEND_URL,
-      "http://localhost:5173"
-    ];
-
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("CORS not allowed"));
-    }
-  },
-  credentials: true
-}));
 // DB
 connectDB();
+
+// ✅ FIXED CORS (production + local)
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "https://laxmi-agency-frontend.vercel.app"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 
 // Middleware
 app.use(express.json());
@@ -35,12 +26,7 @@ app.get("/", (req, res) => {
   res.send("Agency Backend Running");
 });
 
-// expose API base URL (optional) for debugging
-app.get("/api-url", (req, res) => {
-  res.json({ baseUrl: BASE_URL });
-});
-
-// ROUTES (THIS IS THE KEY PART)
+// ROUTES
 app.use("/api/auth", require("./src/routes/authRoutes"));
 app.use("/api/categories", require("./src/routes/categoryRoutes"));
 app.use("/api/items", require("./src/routes/itemRoutes"));
